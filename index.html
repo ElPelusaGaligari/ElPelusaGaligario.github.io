@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <title>Frecuencia E.T.</title>
+  <style>
+    body {
+      margin: 0;
+      background: linear-gradient(to bottom, #0f2027, #203a43, #2c5364);
+      color: white;
+      font-family: sans-serif;
+      text-align: center;
+      overflow-y: auto;
+      min-height: 150vh; /* Para que aparezca scrollbar */
+    }
+
+    canvas {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 150px;
+      z-index: 0;
+      pointer-events: none; /* No bloquea scroll ni clicks */
+      display: block;
+    }
+
+    .contenido {
+      position: relative;
+      z-index: 1;
+      padding: 20px;
+      max-width: 800px;
+      margin: auto;
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="onda"></canvas>
+
+<div class="contenido">
+  <img src="p1.jpg" width="200px" alt="Imagen 1">
+  <h4>Frecuencia E.T.</h4>
+  <p>Integrantes: De Jesús Diego, López Flores José Manuel, Escareño Ruiz Rocío Yuritzi y Vega Flores Jennifer Pamela.</p>
+
+  <a href="https://open.spotify.com/episode/6u1X9LtyrLPSkNwZDYxsi9?si=4e9b8960275447f3:"><img src="p2.jpg" width="100px" alt="Episodio 1"></a>
+  <p>Episodio 1 - Conócenos: en este primer episodio puedes conocer los gustos musicales de los integrantes del podcast.</p>
+
+  <a href="https://youtu.be/69UI-IkiN4M?si=EKqfSrVe1pIim7Xm"><img src="p3.jpg" width="100px" alt="Episodio 2"></a>
+  <p>Episodio 2 - 31 minutos: se aborda un tema bastante inusual que es una recopilación de las mejores canciones de 31 minutos y también las peores.</p>
+
+  <a href="https://youtu.be/SJXbUhw9Qac?si=bxpwWclsR18UUGts"><img src="p4.jpg" width="100px" alt="Episodio 3"></a>
+    <p>Episodio 3 - Melodías Malditas<br>En este capitulo hablaremos de las canciones que son consideradas por muchos como muy tenebrosas</p>
+<a href="https://open.spotify.com/episode/6bzJwV76GNO2hAdrrIpTiV?si=834a1e062d394a42"><img src="p4.jpg" width="100px" alt="Episodio 3"></a>
+    <p>Episodio 3 - Melodías Malditas<br>Version de Espotify</p>
+
+
+
+  <!-- Más contenido para scroll -->
+  <p style="margin-top: 800px;"></p>
+</div>
+
+<script>
+  const canvas = document.getElementById("onda");
+  const ctx = canvas.getContext("2d");
+  let width, height;
+  let time = 0;
+
+  function resize() {
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = 150;
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, width, height);
+
+    ctx.beginPath();
+    ctx.moveTo(0, height / 2);
+
+    for (let x = 0; x <= width; x++) {
+      // Onda con longitud 600px, amplitud 10px, subida 30px
+      let y = Math.sin((x + time) * (2 * Math.PI / 600)) * 10 + (height / 2 - 30);
+      ctx.lineTo(x, y);
+    }
+
+    ctx.lineTo(width, height);
+    ctx.lineTo(0, height);
+    ctx.closePath();
+
+    ctx.fillStyle = "rgba(0, 255, 255, 0.2)";
+    ctx.fill();
+
+    time += 2;
+    requestAnimationFrame(draw);
+  }
+
+  window.addEventListener("resize", resize);
+  resize();
+  draw();
+</script>
+
+</body>
+</html>
